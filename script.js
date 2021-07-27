@@ -36,7 +36,21 @@ let candidato = etapa.candidatos.filter((item) =>{
         return false;
     }
 });
-console.log(`Candidato`,candidato);
+if(candidato.length > 0){
+    candidato = candidato[0];
+    seuVotoPara.style.display = `block`;
+    aviso.style.display= `block`;
+    descrição.innerHTML =`Nome: ${candidato.name}<br/>Partido: ${candidato.partido}`
+
+    let fotosHTML =``;
+    for(let i in candidato.fotos){
+        fotosHTML +=  `<div class='d-1-imagem'>
+        <img src="img/vereador.jpg" alt=''>${candidato.fotos}
+        Vereador
+    </div>`
+    }
+    lateral.innerHTML = fotosHTML;
+}
 
 }  
 
