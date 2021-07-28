@@ -7,15 +7,18 @@ let numeros = document.querySelector('.d-1-3')
 
 let etapaAtual = 0;
 let numero = '';
+let votoBranco = false;
 
 function comecarEtapa(){
     let etapa = etapas[etapaAtual];
 
     let numeroHTML = ``;
+    numero ='';
+    votoBranco=false;
 
-    for(let i = 0; i<etapa.numeros;i++){
+    for(let i = 0; i <etapa.numeros;i++){
         if(i === 0){
-            numeroHTML += `<div class='numero pisca'></div>`
+        numeroHTML += `<div class='numero pisca'></div>`
         }else{
         numeroHTML += `<div class='numero'></div>`
     }}
@@ -40,7 +43,7 @@ if(candidato.length > 0){
     candidato = candidato[0];
     seuVotoPara.style.display = `block`;
     aviso.style.display= `block`;
-    descrição.innerHTML =`Nome: ${candidato.name}<br/>Partido: ${candidato.partido}`
+    descrição.innerHTML = `Nome: ${candidato.name}<br/>Partido: ${candidato.partido}`
 
     let fotosHTML =``;
     for(let i in candidato.fotos){
@@ -50,6 +53,10 @@ if(candidato.length > 0){
     </div>`
     }
     lateral.innerHTML = fotosHTML;
+}else{
+seuVotoPara.style.display = 'block';
+aviso.style.display= `block`;
+descrição.innerHTML =`<div class='aviso--grande pisca'>VOTO NULO</div>`;
 }
 
 }  
@@ -72,13 +79,29 @@ if(elNumero !== null){
  }
 
 function branco(){
-    alert('clicou em branco');
+  if(numero === ''){
+    votoBranco =true;
+    seuVotoPara.style.display='block';
+    aviso.style.display= `block`;
+    numeros.innerHTML ='';
+    descrição.innerHTML =`<div class='aviso--grande pisca'>VOTO BRANCO</div>`;
+  }else{
+      alert('para votar em Branco nao pode ter digitado nenhum numero')
+  }
 }
 function corrige(){
-    alert('clicou em corrige');
+    comecarEtapa();
 }
 function confirma(){
-    alert('clicou em confirma');
-}
+    if(item.numero === numero){
+        console.log('voto confirmado')
+        votoBranco = true;
+        seuVotoPara.style.display='block';
+        aviso.style.display= `block`;
+        numeros.innerHTML ='';
+        descrição.innerHTML =`<div class='aviso--grande pisca'>VOTO PARA ´${candidato.name}´ CONFIRMADO</div>`;
+      }else{
+          alert('para confirmar o voto voce precisa digitar um numero de candidato valido');
+}}
 
 comecarEtapa();
