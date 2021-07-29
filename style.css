@@ -137,3 +137,17 @@ background-color: #403a3a;
     border-top: 2px solid #000;
     padding-left: 10px;
 }
+
+.aviso--grande{
+    font-weight: bold;
+    font-size: 40px;
+}
+.aviso--gigante{
+    font-weight: bold;
+    text-align: center;
+    font-size: 70px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -8,6 +8,7 @@ let numeros = document.querySelector('.d-1-3')
 let etapaAtual = 0;
 let numero = '';
 let votoBranco = false;
+let votos = []
 
 function comecarEtapa(){
     let etapa = etapas[etapaAtual];
@@ -47,11 +48,18 @@ if(candidato.length > 0){
 
     let fotosHTML =``;
     for(let i in candidato.fotos){
+        if(candidato.fotos[i].small){
+            fotosHTML += `<div class='d-1-imagem small'>
+            <img src="img/vereador.jpg" alt=''>
+            ${candidato.fotos}
+            Vereador
+        </div>`}else{
         fotosHTML +=  `<div class='d-1-imagem'>
-        <img src="img/vereador.jpg" alt=''>${candidato.fotos}
+        <img src="img/bozo.jpeg" alt=''>
+        ${candidato.fotos}
         Vereador
     </div>`
-    }
+    }}
     lateral.innerHTML = fotosHTML;
 }else{
 seuVotoPara.style.display = 'block';
@@ -93,15 +101,31 @@ function corrige(){
     comecarEtapa();
 }
 function confirma(){
-    if(item.numero === numero){
-        console.log('voto confirmado')
-        votoBranco = true;
-        seuVotoPara.style.display='block';
-        aviso.style.display= `block`;
-        numeros.innerHTML ='';
-        descrição.innerHTML =`<div class='aviso--grande pisca'>VOTO PARA ´${candidato.name}´ CONFIRMADO</div>`;
-      }else{
-          alert('para confirmar o voto voce precisa digitar um numero de candidato valido');
-}}
-
+    let etapa =etapas[etapaAtual];
+    let votoConfirmado = false;
+    if(votoBranco === true){
+        votoConfirmado =true;
+        votos.push({
+            etapa:etapas[etapaAtual].titulo,
+            voto:'branco'
+        });
+    }else if(numero.length === etapa.numeros){
+        votoConfirmado = true;
+        votos.push({
+            etapa:etapas[etapaAtual].titulo,
+            voto: numero
+        });
+    }
+    if(votoConfirmado){
+        etapaAtual++;
+    if(etapas[etapaAtual] !== undefined){
+        comecarEtapa();
+    }else{
+    tela = document.querySelector('.tela')
+    tela.innerHTML = `<div class='aviso--gigante pisca'>FIM</div>`;
+        console.log(votos)
+    }
+    }
+}
+ 
 comecarEtapa();
